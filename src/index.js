@@ -2,14 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { Home } from "./home";
-import { Login } from "./login";
+import { Login } from "./loginPage";
 import { Registration } from "./registration";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import { Navbar } from "./navbar";
 const App = () => {
   return (
     <Router>
       <div className="bg-white dark:bg-gray-800">
+        <Navbar />
         <h1 mx-40>Welcome to App component</h1>
         <ul>
           <li>
