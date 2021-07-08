@@ -3,12 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { Home } from "./home";
 import { Login } from "./loginPage";
-import { Registration } from "./registration";
+import { Registration } from "./registrationPage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Navbar } from "./navbar";
 const App = () => {
   return (
     <Router>
+      <Navbar transparent />
       <div className="bg-white dark:bg-gray-800">
         <Navbar />
         <h1 mx-40>Welcome to App component</h1>
@@ -30,9 +31,7 @@ const App = () => {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/registration">
-            <Registration />
-          </Route>
+          <Route path="/registration" component={Registration} />
         </Switch>
       </div>
     </Router>

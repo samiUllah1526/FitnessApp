@@ -3,9 +3,11 @@ import React from "react";
 import { Navbar } from "./navbar.js";
 import { FooterSmall } from "./footer.js";
 
-function Login() {
+function Registration(props) {
+  console.log(props);
   return (
     <>
+      <Navbar transparent />
       <main>
         <section className="absolute w-full h-full">
           <div
@@ -26,7 +28,7 @@ function Login() {
                   <div className="rounded-t mb-0 px-6 py-6"></div>
                   <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                     <div className="text-gray-500 text-center mb-3 font-bold">
-                      <small>Sign in with credentials</small>
+                      <small>Please, register with valid email account</small>
                     </div>
                     <form>
                       <div className="relative w-full mb-3">
@@ -58,6 +60,22 @@ function Login() {
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
+
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Confirm Password
+                        </label>
+                        <input
+                          type="password"
+                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Password"
+                          style={{ transition: "all .15s ease" }}
+                        />
+                      </div>
+
                       <div>
                         <label className="inline-flex items-center cursor-pointer">
                           <input
@@ -74,6 +92,9 @@ function Login() {
 
                       <div className="text-center mt-6">
                         <button
+                          onClick={() => {
+                            props.history.push("/login");
+                          }}
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                           type="button"
                           style={{ transition: "all .15s ease" }}
@@ -114,4 +135,4 @@ function Login() {
   );
 }
 
-export { Login };
+export { Registration };
