@@ -1,9 +1,31 @@
-import React from "react";
-
-import { Navbar } from "./navbar.js";
+import { React, useState } from "react";
 import { FooterSmall } from "./footer.js";
+import axios from "axios";
 
-function Login() {
+function Login(props) {
+  const [email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+
+  function handleEmail(event) {
+    setEmail(event.target.value);
+  }
+
+  function handlePassword(event) {
+    setPassword(event.target.value);
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const reqBody = {
+      email: email,
+      Password: Password,
+    };
+
+    const apiUrl = "https://fitnessappauth.herokuapp.com/api/users/login";
+    const res = await axios.post(apiUrl, reqBody);
+    console.log(res);
+  }
+
   return (
     <>
       <main>
@@ -28,7 +50,7 @@ function Login() {
                     <div className="text-gray-500 text-center mb-3 font-bold">
                       <small>Sign in with credentials</small>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -37,6 +59,7 @@ function Login() {
                           Email
                         </label>
                         <input
+                          onChange={handleEmail}
                           type="email"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Email"
@@ -52,6 +75,7 @@ function Login() {
                           Password
                         </label>
                         <input
+                          onChange={handlePassword}
                           type="password"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Password"
@@ -74,6 +98,9 @@ function Login() {
 
                       <div className="text-center mt-6">
                         <button
+                          onClick={() => {
+                            props.history.push("/");
+                          }}
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                           type="button"
                           style={{ transition: "all .15s ease" }}
@@ -85,15 +112,6 @@ function Login() {
                   </div>
                 </div>
                 <div className="flex flex-wrap mt-6">
-                  <div className="w-1/2">
-                    <a
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      className="text-gray-300"
-                    >
-                      <small>Forgot password?</small>
-                    </a>
-                  </div>
                   <div className="w-1/2 text-right">
                     <a
                       href="#pablo"

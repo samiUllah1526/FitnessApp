@@ -1,13 +1,52 @@
-import React from "react";
-
-import { Navbar } from "./navbar.js";
+import { React, useState } from "react";
 import { FooterSmall } from "./footer.js";
+import "axios";
+import axios from "axios";
 
 function Registration(props) {
-  console.log(props);
+  const [Name, setName] = useState("");
+  const [Phone, setPhone] = useState("");
+  const [Address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+
+  function handleName(event) {
+    setName(event.target.value);
+  }
+
+  function handlePhone(event) {
+    setPhone(event.target.value);
+  }
+
+  function handleAddress(event) {
+    setAddress(event.target.value);
+  }
+
+  function handleEmail(event) {
+    setEmail(event.target.value);
+  }
+
+  function handlePassword(event) {
+    setPassword(event.target.value);
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const reqBody = {
+      Name: Name,
+      email: email,
+      Password: Password,
+      Phone: Phone,
+      Address: Address,
+    };
+
+    const apiUrl = "https://fitnessappauth.herokuapp.com/api/users/login";
+    const res = await axios.post(apiUrl, reqBody);
+    console.log(res);
+  }
+
   return (
     <>
-      <Navbar transparent />
       <main>
         <section className="absolute w-full h-full">
           <div
@@ -30,7 +69,55 @@ function Registration(props) {
                     <div className="text-gray-500 text-center mb-3 font-bold">
                       <small>Please, register with valid email account</small>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit}>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Name
+                        </label>
+                        <input
+                          onChange={handleName}
+                          type="text"
+                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Name"
+                          style={{ transition: "all .15s ease" }}
+                        />
+                      </div>
+
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Phone
+                        </label>
+                        <input
+                          onChange={handlePhone}
+                          type="number"
+                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Phone"
+                          style={{ transition: "all .15s ease" }}
+                        />
+                      </div>
+
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Address
+                        </label>
+                        <input
+                          onChange={handleAddress}
+                          type="text"
+                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Address"
+                          style={{ transition: "all .15s ease" }}
+                        />
+                      </div>
+
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -39,6 +126,7 @@ function Registration(props) {
                           Email
                         </label>
                         <input
+                          onChange={handleEmail}
                           type="email"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Email"
@@ -54,6 +142,7 @@ function Registration(props) {
                           Password
                         </label>
                         <input
+                          onChange={handlePassword}
                           type="password"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Password"
@@ -71,7 +160,7 @@ function Registration(props) {
                         <input
                           type="password"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Password"
+                          placeholder="Confirm Password"
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
@@ -93,28 +182,19 @@ function Registration(props) {
                       <div className="text-center mt-6">
                         <button
                           onClick={() => {
-                            props.history.push("/login");
+                            props.history.push("/");
                           }}
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                           type="button"
                           style={{ transition: "all .15s ease" }}
                         >
-                          Sign In
+                          Register
                         </button>
                       </div>
                     </form>
                   </div>
                 </div>
                 <div className="flex flex-wrap mt-6">
-                  <div className="w-1/2">
-                    <a
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      className="text-gray-300"
-                    >
-                      <small>Forgot password?</small>
-                    </a>
-                  </div>
                   <div className="w-1/2 text-right">
                     <a
                       href="#pablo"
