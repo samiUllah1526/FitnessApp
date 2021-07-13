@@ -1,26 +1,23 @@
 import { React, useState } from "react";
-import { FooterSmall } from "./footer.js";
-import "axios";
 import axios from "axios";
 
-function Registration(props) {
-  const [Name, setName] = useState("");
-  const [Phone, setPhone] = useState("");
-  const [Address, setAddress] = useState("");
+async function apiCaller(reqBody) {
+  try {
+    const apiUrl = "https://fitnessappauth.herokuapp.com/api/users/login";
+    const token = await axios.post(apiUrl, reqBody);
+    console.log(token.data.SuccessMessage);
+    return token;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function Login(props) {
+  // const { setToken } = props;
+  const [token, setToken] = useState();
+
   const [email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
-
-  function handleName(event) {
-    setName(event.target.value);
-  }
-
-  function handlePhone(event) {
-    setPhone(event.target.value);
-  }
-
-  function handleAddress(event) {
-    setAddress(event.target.value);
-  }
 
   function handleEmail(event) {
     setEmail(event.target.value);
@@ -31,20 +28,33 @@ function Registration(props) {
   }
 
   async function handleSubmit(event) {
-    event.preventDefault();
-    const reqBody = {
-      Name: Name,
-      email: email,
-      Password: Password,
-      Phone: Phone,
-      Address: Address,
-    };
+    try {
+      event.preventDefault();
+      const reqBody = {
+        email: email,
+        Password: Password,
+      };
+      const res = await apiCaller(reqBody);
+      const token = res.data.token;
+      console.log(`login res ${token}`);
+      console.log(res.status == "200");
 
-    const apiUrl = "https://fitnessappauth.herokuapp.com/api/users/login";
-    const res = await axios.post(apiUrl, reqBody);
-    console.log(res);
+      if (res.status == "200") {
+        // setToken(res.data.token);
+        props.history.push("/home");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
+  console.log(`outside of handler res ${token}`);
+  if (token) {
+    console.log("inside if token in login");
+    console.log(`last if block --> token is: ${token} `);
+    props.history.push("/home");
+    // return <Home />;
+  }
   return (
     <>
       <main>
@@ -54,7 +64,7 @@ function Registration(props) {
             style={{
               backgroundImage:
                 "url(" +
-                require("./assets/img/register_bg_2.png").default +
+                require("./../assets/img/register_bg_2.png").default +
                 ")",
               backgroundSize: "100%",
               backgroundRepeat: "no-repeat",
@@ -67,57 +77,9 @@ function Registration(props) {
                   <div className="rounded-t mb-0 px-6 py-6"></div>
                   <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                     <div className="text-gray-500 text-center mb-3 font-bold">
-                      <small>Please, register with valid email account</small>
+                      <small>Sign in with credentials</small>
                     </div>
                     <form onSubmit={handleSubmit}>
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Name
-                        </label>
-                        <input
-                          onChange={handleName}
-                          type="text"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Name"
-                          style={{ transition: "all .15s ease" }}
-                        />
-                      </div>
-
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Phone
-                        </label>
-                        <input
-                          onChange={handlePhone}
-                          type="number"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Phone"
-                          style={{ transition: "all .15s ease" }}
-                        />
-                      </div>
-
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Address
-                        </label>
-                        <input
-                          onChange={handleAddress}
-                          type="text"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Address"
-                          style={{ transition: "all .15s ease" }}
-                        />
-                      </div>
-
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -149,22 +111,6 @@ function Registration(props) {
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
-
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Confirm Password
-                        </label>
-                        <input
-                          type="password"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Confirm Password"
-                          style={{ transition: "all .15s ease" }}
-                        />
-                      </div>
-
                       <div>
                         <label className="inline-flex items-center cursor-pointer">
                           <input
@@ -181,14 +127,11 @@ function Registration(props) {
 
                       <div className="text-center mt-6">
                         <button
-                          onClick={() => {
-                            props.history.push("/");
-                          }}
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                          type="button"
+                          type="submit"
                           style={{ transition: "all .15s ease" }}
                         >
-                          Register
+                          Sign In
                         </button>
                       </div>
                     </form>
@@ -208,11 +151,10 @@ function Registration(props) {
               </div>
             </div>
           </div>
-          <FooterSmall absolute />
         </section>
       </main>
     </>
   );
 }
 
-export { Registration };
+export { Login };

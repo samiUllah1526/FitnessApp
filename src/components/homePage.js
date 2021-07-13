@@ -8,7 +8,9 @@ const Home = (props) => {
           className="absolute top-0 w-full h-full bg-gray-900"
           style={{
             backgroundImage:
-              "url(" + require("./assets/img/register_bg_2.png").default + ")",
+              "url(" +
+              require("./../assets/img/register_bg_2.png").default +
+              ")",
             backgroundSize: "100%",
             backgroundRepeat: "no-repeat",
           }}
@@ -22,7 +24,6 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-        <FooterSmall absolute />
       </section>
     </main>
   );
