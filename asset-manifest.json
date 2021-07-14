@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/FitnessApp/static/css/main.8670b315.chunk.css",
-    "main.js": "/FitnessApp/static/js/main.14671365.chunk.js",
-    "main.js.map": "/FitnessApp/static/js/main.14671365.chunk.js.map",
+    "main.js": "/FitnessApp/static/js/main.e450e217.chunk.js",
+    "main.js.map": "/FitnessApp/static/js/main.e450e217.chunk.js.map",
     "runtime-main.js": "/FitnessApp/static/js/runtime-main.9a2d3399.js",
     "runtime-main.js.map": "/FitnessApp/static/js/runtime-main.9a2d3399.js.map",
-    "static/js/2.e2ebe234.chunk.js": "/FitnessApp/static/js/2.e2ebe234.chunk.js",
-    "static/js/2.e2ebe234.chunk.js.map": "/FitnessApp/static/js/2.e2ebe234.chunk.js.map",
+    "static/js/2.02e6518b.chunk.js": "/FitnessApp/static/js/2.02e6518b.chunk.js",
+    "static/js/2.02e6518b.chunk.js.map": "/FitnessApp/static/js/2.02e6518b.chunk.js.map",
     "index.html": "/FitnessApp/index.html",
     "static/css/main.8670b315.chunk.css.map": "/FitnessApp/static/css/main.8670b315.chunk.css.map",
-    "static/js/2.e2ebe234.chunk.js.LICENSE.txt": "/FitnessApp/static/js/2.e2ebe234.chunk.js.LICENSE.txt",
+    "static/js/2.02e6518b.chunk.js.LICENSE.txt": "/FitnessApp/static/js/2.02e6518b.chunk.js.LICENSE.txt",
     "static/media/register_bg_2.png": "/FitnessApp/static/media/register_bg_2.4f2cb0ac.png"
   },
   "entrypoints": [
     "static/js/runtime-main.9a2d3399.js",
-    "static/js/2.e2ebe234.chunk.js",
+    "static/js/2.02e6518b.chunk.js",
     "static/css/main.8670b315.chunk.css",
-    "static/js/main.14671365.chunk.js"
+    "static/js/main.e450e217.chunk.js"
   ]
 }
